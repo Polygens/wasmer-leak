@@ -60,11 +60,15 @@ func main() {
 	copy(data, input)
 
 	for {
+		memory, _ := instance.Exports.GetMemory("memory")
+
 		// Calls the exported function with the start and length of the inputJson in memory
 		// The return value is an integer containing the start and length of the transformed json in memory
 		_, err := transform(0, len(input))
 		if err != nil {
 			logrus.Fatal("failed to transform: %w", err)
 		}
+
+		logrus.Debug(memory.Data())
 	}
 }
